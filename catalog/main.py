@@ -21,15 +21,15 @@ app.add_middleware(
 
 # Database Configuration
 db_config = {
-    "host": "192.168.49.2",
+    "host": "10.99.164.26",
     "user": "root",
     "password": "root",
     "database": "warehouse_databass",
-    "port": "31126",
+    "port": "3306",
 }
 
 # CDN Configuration
-cdn_url = "http://192.168.49.2:31503/cdn/"
+cdn_url = "http://10.107.108.239:5000/cdn/"
 default_image_path = "ash.jpeg"
 
 # Connect to MySQL database
