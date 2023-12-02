@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: barcode-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: barcode
+  template:
+    metadata:
+      labels:
+        app: barcode
+    spec:
+      containers:
+      - name: barcode
+        image: exitflynn/wms-barcode:latest
+        ports:
+        - containerPort: 8000
+        env:
+        - name: CDN_URL
+          value: "http://10.107.108.239:5000/upload"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: barcode-service
+spec:
+  selector:
+    app: barcode
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8000
+  type: LoadBalancer
+

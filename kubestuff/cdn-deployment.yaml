@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: cdn-microservice-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: cdn-microservice
+  template:
+    metadata:
+      labels:
+        app: cdn-microservice
+    spec:
+      containers:
+      - name: cdn-microservice
+        image: exitflynn/basic-cdn-microservice:latest
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
