@@ -9,13 +9,12 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route('/')
 def respond():
-    return "hey there!"
+    return "Hey there! To send a file, use the /upload endpoint."
 
 @app.route('/uploads/<filename>')
 def serve_file(filename):
     # Serve uploaded files
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename)
-
 
 @app.route('/upload', methods=['POST'])
 def upload_file():
@@ -29,14 +28,14 @@ def upload_file():
 
     # Save the uploaded file
     if file:
-        filename = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
+        filename = file.filename.split('/')[-1]
+        filename = os.path.join(app.config['UPLOAD_FOLDER'], filename)
         file.save(filename)
-        return jsonify({'message': 'File uploaded successfully'}), 200
-
+        cdn_link = f"http://{request.host}/{filename}"
+        return jsonify({'cdn_link': cdn_link}), 200
 
 if __name__ == '__main__':
     if not os.path.exists(UPLOAD_FOLDER):
         os.makedirs(UPLOAD_FOLDER)
 
     app.run(host='0.0.0.0', port=5000, debug=True)
-

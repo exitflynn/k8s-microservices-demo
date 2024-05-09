@@ -1,6 +1,4 @@
 fastapi==0.68.0
 uvicorn==0.15.0
-python-barcode==0.13.1
 requests==2.26.0
-mysql-connector-python==8.2.0
-python-multipart==0.0.6
+pydantic
